@@ -16,6 +16,11 @@ public class WordleController : MonoBehaviour
     void Start()
     {
         GameSetup();
+
+        inputField.onSubmit.AddListener((string text) =>
+        {
+            SubmitGuess();
+        });
     }
 
     // Update is called once per frame

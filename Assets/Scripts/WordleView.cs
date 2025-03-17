@@ -7,6 +7,7 @@ public class WordleView : MonoBehaviour
 {
     public Transform[] rows; // each row has 5 children squares
 
+
     public void Setup()
     {
         // Clear the board
