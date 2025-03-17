@@ -1,5 +1,6 @@
 using UnityEngine;
 using TMPro;
+using UnityEngine.UI;
 
 public class WordleController : MonoBehaviour
 {
@@ -8,6 +9,9 @@ public class WordleController : MonoBehaviour
 
     [Header("UI References")]
     public TMP_InputField inputField;
+    public GameObject gameOverCanvas;
+    public TMP_Text gameOverText;
+
 
     // You might have a "Submit" Button too, which you wire up via the Inspector.
     // public Button submitButton;
@@ -15,6 +19,9 @@ public class WordleController : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+
+
+
         GameSetup();
 
         inputField.onSubmit.AddListener((string text) =>
@@ -39,6 +46,10 @@ public class WordleController : MonoBehaviour
 
         // 3) Call view.Setup() to clear out the board visually
         view.Setup();
+
+        gameOverCanvas.SetActive(false);
+
+        inputField.interactable = true;
     }
 
     // Called when user presses "Submit"
@@ -77,15 +88,30 @@ public class WordleController : MonoBehaviour
         inputField.text = "";
     }
 
-    private void WinGame()
+    public void WinGame()
     {
         Debug.Log("You Win! The answer was: " + model.correctAnswer);
         // Optionally disable future input or show a "New Game" button.
+        if (gameOverText != null)
+        {
+            gameOverText.text = "You Win! The answer was: " + model.correctAnswer.ToUpper();
+        }
+        gameOverCanvas.SetActive(true);
+
+        inputField.interactable = false;
     }
 
-    private void LoseGame()
+    public void LoseGame()
     {
         Debug.Log("You Lose! The correct word was: " + model.correctAnswer);
         // Optionally disable input or show a "New Game" button.
+        if (gameOverText != null)
+        {
+            gameOverText.text = "You Lose! The correct word was: " + model.correctAnswer.ToUpper();
+        }
+        gameOverCanvas.SetActive(true);
+
+        inputField.interactable = false;
+
     }
 }
